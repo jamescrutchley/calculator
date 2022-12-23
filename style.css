@@ -13,8 +13,8 @@ button {
 .operators {
     display: grid;
     grid-area: operators;
-    grid-template-columns: 150px;
-    grid-template-rows: repeat(4, 150px);
+    grid-template-columns: 100px;
+    grid-template-rows: repeat(4, 100px);
     align-items: stretch;
     justify-content: stretch;
 }
@@ -27,8 +27,8 @@ button {
 .numbers {
     display: grid;
     grid-area: number;
-    grid-template-columns: 150px 150px 150px;
-    grid-template-rows: 150px 150px 150px 150px;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(4, 100px);
     grid-template-areas: 
         ". . ."
         ". . ."
@@ -43,22 +43,35 @@ button {
 .display {
     grid-area: display;
     display: grid;
-    grid-template-columns: repeat(4, 150px);
-    grid-template-rows: 150px;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: 30px 70px;
     background-color: aliceblue;
     border: black 2px solid;
+}
+
+#display {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    font-size: 2rem;
+    text-align: center;
+}
+
+#sub-display {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    font-size: 1rem;
 }
 
 .calculator-container {
     background-color: gainsboro;
     border: black 2px solid;
-    width: 600px;
-    height: 900px;
+    width: 400px;
+    height: 600px;
     grid-auto-flow: dense;
     justify-content: center;
     display: grid;
-    grid-template-columns: 150px 150px 150px 150px;
-    grid-template-rows: 150px 150px 150px 150px 150px 150px;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(6, 100px);
     grid-template-areas:
         "display display display display"
         "clear clear clear operators"
