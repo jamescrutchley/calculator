@@ -80,9 +80,7 @@ const processArray = (arr) => {
         myEquation.push(integer);
         integer = '';
     }
-    console.log(arr);
     if (myEquation.length < 3) {
-        console.log('sub length less than 3')
         display.value = myEquation[0];
         operators.forEach(button => button.removeEventListener('click', operatorPress));
         done = true;
