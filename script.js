@@ -1,16 +1,9 @@
 
 // global vars
-
+let done = false;
 let equation = [];
 let integer = '';
 let selectedOperator = '';
-
-let operatorDict = {
-    subtract: '-',
-    add: '+',
-    multiply: '*',
-    divide: '%'
-};
 
 // elements
 const display = document.querySelector('#display');
@@ -24,6 +17,10 @@ const submitButton = document.querySelector('.submit');
 // event listeners
 
 const numberPress = (e) => {
+    if (done) {
+        clear();
+        done = false;
+    };
     if (selectedOperator) {
         equation.push(selectedOperator);
         subDisplay.value += display.value;
@@ -38,6 +35,10 @@ const numberPress = (e) => {
 }
 
 const operatorPress = (e) => {
+    if (done) {
+        clear();
+        done = false;
+    };
     if (integer != '') {
         equation.push(integer);
         integer = ''
@@ -67,6 +68,7 @@ const clear = () => {
     display.value = '';
     equation = [];
     subDisplay.value = equation;
+    operators.forEach(button => button.removeEventListener('click', operatorPress));
 }
 
 
@@ -82,6 +84,8 @@ const processArray = (arr) => {
     if (myEquation.length < 3) {
         console.log('sub length less than 3')
         display.value = myEquation[0];
+        operators.forEach(button => button.removeEventListener('click', operatorPress));
+        done = true;
     } else {
         let a = myEquation.shift()
         let op = myEquation.shift()
@@ -124,8 +128,6 @@ const multiply = (a,b) => a * b;
 // divide
 
 const divide = (a,b) => a / b;
-
-const hack = (a,b) => `${a}.${b}`;
 
 
 // operate - takes two operants and an operator, then calls one of the above functions. 
