@@ -1,7 +1,9 @@
 
 // global vars
 
-let input = '';
+let equation = [];
+let integer = '';
+let selectedOperator = '';
 
 let operatorDict = {
     subtract: '-',
@@ -9,7 +11,6 @@ let operatorDict = {
     multiply: '*',
     divide: '%'
 };
-
 
 // elements
 const display = document.querySelector('#display');
@@ -20,75 +21,92 @@ const operators = document.querySelectorAll('.operators button:not(.submit)');
 const submitButton = document.querySelector('.submit');
 
 
-
-
 // event listeners
 
 const numberPress = (e) => {
+    if (selectedOperator) {
+        equation.push(selectedOperator);
+        subDisplay.value += display.value;
+        selectedOperator = '';
+    }
+    toggleAllButtons();
     display.value = '';
-    let number = e.target.textContent;
-    display.value += number;
-    input += display.value;
-    subDisplay.value = input;
-}
-
-const clear = () => {
-    display.value = '';
-    input = '';
-    subDisplay.value = input;
+    let pressedNumber = e.target.textContent;
+    integer += pressedNumber;
+    display.value = integer;
+    subDisplay.value += pressedNumber;
 }
 
 const operatorPress = (e) => {
-    let operator = e.target.textContent;
-    display.value = operator;
-    input += operator;
-    subDisplay.value = input;
+    if (integer != '') {
+        equation.push(integer);
+        integer = ''
+    }
+    switch(e.target.textContent) {
+        case '+':
+            selectedOperator = add;
+            break;
+        case '%':
+            selectedOperator = divide;
+            break;
+        case '*':
+            selectedOperator = multiply;
+            break;
+        case '-':
+            selectedOperator = subtract;
+            break;
+        default:
+            //
+    }
+    display.value = e.target.textContent;
 }
+
+const clear = () => {
+    integer = '';
+    selectedOperator = '';
+    display.value = '';
+    equation = [];
+    subDisplay.value = equation;
+}
+
 
 //main logic 
 
-const processArray = (someString) => {
-    let submission = someString.replaceAll(',','').match(/\d+|\D+/g);
-    console.log(submission);
-    if (submission.length < 3) {
+const processArray = (arr) => {
+    let myEquation = arr;
+    if (integer) {
+        myEquation.push(integer);
+        integer = '';
+    }
+    console.log(arr);
+    if (myEquation.length < 3) {
         console.log('sub length less than 3')
-        display.value = someString.match(/\d+|\D+/g)[0];
-    }
-    else if (submission.includes('.')) {
-        display.value = someString.split('').join("");
+        display.value = myEquation[0];
     } else {
-        let operator;
-        let a = submission.shift()
-        let op = submission.shift()
-        let b = submission.shift()
-        switch(op) {
-            case '+':
-                operator = add;
-                break;
-            case '%':
-                operator = divide;
-                break;
-            case '*':
-                operator = multiply;
-                break;
-            case '-':
-                operator = subtract;
-                break;
-            default:
-                //
-    }
-    submission.unshift(operate(a, b, operator))
-    return processArray(String(submission));
+        let a = myEquation.shift()
+        let op = myEquation.shift()
+        let b = myEquation.shift()
+
+    myEquation.unshift(operate(a, b, op))
+    return processArray(myEquation);
     }
 }
 
 
 numbers.forEach(element => element.addEventListener('click', numberPress));
 clearButton.addEventListener('click', clear)
-operators.forEach(element => element.addEventListener('click', operatorPress));
-submitButton.addEventListener('click', () => processArray(input));
+submitButton.addEventListener('click', () => processArray(equation));
 
+const toggleAllButtons = () => {
+    operators.forEach(button => button.removeEventListener('click', operatorPress));
+    operators.forEach(button => button.addEventListener('click', operatorPress));
+}
 
+const toggleButton = (e) => {
+    let button = e;
+    button.removeEventListener('click', operatorPress);
+    button.addEventListener('click', operatorPress);
+}
 
 
 // add
