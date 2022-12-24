@@ -10,6 +10,14 @@ button {
     height: auto;
 }
 
+button:hover {
+    font-size: 1.5rem;
+}
+
+button:active {
+    font-size: 4rem;
+}
+
 .operators {
     display: grid;
     grid-area: operators;
@@ -17,6 +25,15 @@ button {
     grid-template-rows: repeat(4, 100px);
     align-items: stretch;
     justify-content: stretch;
+}
+
+.operators button {
+    background-color: rgba(141, 198, 198, 0.258);
+    border: 1px solid gray;
+}
+
+.operators button:nth-child(odd) {
+    background-color: rgba(158, 169, 169, 0.432);
 }
 
 .clear {
@@ -46,7 +63,6 @@ button {
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: 30px 70px;
     background-color: aliceblue;
-    border: black 2px solid;
 }
 
 #display {
@@ -64,7 +80,6 @@ button {
 
 .calculator-container {
     background-color: gainsboro;
-    border: black 2px solid;
     width: 400px;
     height: 600px;
     grid-auto-flow: dense;
@@ -81,3 +96,10 @@ button {
         "number number number operators";
 }
 
+.numbers button {
+    background-color: rgba(160, 214, 232, 0.455);
+    border: 1px solid gray;
+}
+.numbers button:nth-child(odd){
+    background-color: rgba(173, 216, 230, 0.418);
+}
