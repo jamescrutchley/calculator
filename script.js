@@ -45,6 +45,8 @@ const operatorPress = (e) => {
     subDisplay.value = input;
 }
 
+//main logic 
+
 const processArray = (someString) => {
     let submission = someString.replaceAll(',','').match(/\d+|\D+/g);
     console.log(submission);
@@ -52,7 +54,7 @@ const processArray = (someString) => {
         console.log('sub length less than 3')
         display.value = someString.match(/\d+|\D+/g)[0];
     }
-    if (submission.includes('.')) {
+    else if (submission.includes('.')) {
         display.value = someString.split('').join("");
     } else {
         let operator;
