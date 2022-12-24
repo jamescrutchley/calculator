@@ -130,7 +130,7 @@ const divide = (a,b) => a / b;
 
 // operate - takes two operants and an operator, then calls one of the above functions. 
 
-const operate = (a, b, operator) => operator(a,b);
+const operate = (a, b, operator) => operator(a,b).toFixed();
 
 //
 
